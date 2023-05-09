@@ -40,28 +40,28 @@ int aux_numberSubsequenceLessThanK(vector<int> &arr,int n, int k){
     return dp[n][k];
 
     myPrintMatrix((int**)dp, n+1, k+1);
-    }
+}
 
-    int aux_Rec_numberSubsequenceLessThanK(vector<int> &arr, int n, int k, int i = 0, int prod = 1)
+int aux_Rec_numberSubsequenceLessThanK(vector<int> &arr, int n, int k, int i = 0, int prod = 1)
+{
+    if (i == n)
     {
-        if (i == n)
+        if (prod <= k)
         {
-            if (prod <= k)
-            {
-                return 1;
-            }
-            else
-            {
-                return 0;
-            }
+            return 1;
         }
-        int count = 0;
-        // Include the current element in the subsequence
-        count += aux_Rec_numberSubsequenceLessThanK(arr, n, k, i + 1, prod * arr[i]);
-        // Exclude the current element from the subsequence
-        count += aux_Rec_numberSubsequenceLessThanK(arr, n, k, i + 1, prod);
-        return count;
+        else
+        {
+            return 0;
+        }
     }
+    int count = 0;
+    // Include the current element in the subsequence
+    count += aux_Rec_numberSubsequenceLessThanK(arr, n, k, i + 1, prod * arr[i]);
+    // Exclude the current element from the subsequence
+    count += aux_Rec_numberSubsequenceLessThanK(arr, n, k, i + 1, prod);
+    return count;
+}
 /* #endregion funzioni ausiliarie es */
 
 /* #region funzioni ES */
