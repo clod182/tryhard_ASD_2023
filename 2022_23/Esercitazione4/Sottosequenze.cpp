@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <cstring>
 using namespace std;
 
 string ltrim(const string &);
@@ -42,25 +43,23 @@ int aux_numberSubsequenceLessThanK(vector<int> &arr,int n, int k){
     myPrintMatrix((int**)dp, n+1, k+1);
 }
 
-int aux_Rec_numberSubsequenceLessThanK(vector<int> &arr, int n, int k, int i = 0, int prod = 1)
+int aux_Rec_numberSubsequenceLessThanK(vector<int>& arr, int n, int k) //Compiled successfully.12/15 test cases passed
 {
-    if (i == n)
-    {
-        if (prod <= k)
-        {
-            return 1;
-        }
-        else
-        {
-            return 0;
-        }
+// Base cases
+    if (n == 0) {
+        return 0;  // Empty array, no subsequences
     }
-    int count = 0;
-    // Include the current element in the subsequence
-    count += aux_Rec_numberSubsequenceLessThanK(arr, n, k, i + 1, prod * arr[i]);
-    // Exclude the current element from the subsequence
-    count += aux_Rec_numberSubsequenceLessThanK(arr, n, k, i + 1, prod);
-    return count;
+    if (k <= 1) {
+        return 0;  // Product limit is <= 1, no subsequences
+    }
+    
+    // If the last element of arr is greater than k, recurse on the array without the last element
+    if (arr[n - 1] > k) {
+        return aux_Rec_numberSubsequenceLessThanK(arr, n - 1, k);
+    }
+    
+    // Calculate the number of subsequences by including or excluding the last element
+    return aux_Rec_numberSubsequenceLessThanK(arr, n - 1, k) + aux_Rec_numberSubsequenceLessThanK(arr, n - 1, k / arr[n - 1]) + 1;
 }
 /* #endregion funzioni ausiliarie es */
 
