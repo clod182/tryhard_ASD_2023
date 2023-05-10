@@ -45,19 +45,16 @@ int aux_numberSubsequenceLessThanK(vector<int> &arr,int n, int k){
 
 int aux_Rec_numberSubsequenceLessThanK(vector<int>& arr, int n, int k) //Compiled successfully.12/15 test cases passed
 {
-// Base cases
+    // Base cases
     if (n == 0) {
         return 0;  // Empty array, no subsequences
     }
-    if (k <= 1) {
-        return 0;  // Product limit is <= 1, no subsequences
-    }
-    
+
     // If the last element of arr is greater than k, recurse on the array without the last element
     if (arr[n - 1] > k) {
         return aux_Rec_numberSubsequenceLessThanK(arr, n - 1, k);
     }
-    
+
     // Calculate the number of subsequences by including or excluding the last element
     return aux_Rec_numberSubsequenceLessThanK(arr, n - 1, k) + aux_Rec_numberSubsequenceLessThanK(arr, n - 1, k / arr[n - 1]) + 1;
 }
