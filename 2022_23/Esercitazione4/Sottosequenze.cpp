@@ -39,7 +39,6 @@ int aux_numberSubsequenceLessThanK(vector<int> &arr,int n, int k){
     }
 
     return dp[n][k];
-
     myPrintMatrix((int**)dp, n+1, k+1);
 }
 
@@ -61,16 +60,12 @@ int aux_Rec_numberSubsequenceLessThanK(vector<int>& arr, int n, int k) //Compile
 /* #endregion funzioni ausiliarie es */
 
 /* #region funzioni ES */
-//dynamic programming
-/*int numberSubsequenceLessThanK(vector<int> &arr, int k){
-    int ret = aux_numberSubsequenceLessThanK(arr, arr.size(), k);
 
-    return ret;
-}*/
-
-//recursive
 int numberSubsequenceLessThanK(vector<int> &arr, int k){
-    int ret = aux_Rec_numberSubsequenceLessThanK(arr, arr.size(), k);
+    //dynamic programming
+    int ret = aux_numberSubsequenceLessThanK(arr, arr.size(), k);
+    //recursive
+    //int ret = aux_Rec_numberSubsequenceLessThanK(arr, arr.size(), k);
 
     return ret;
 }
@@ -79,7 +74,6 @@ int numberSubsequenceLessThanK(vector<int> &arr, int k){
 
 int main()
 {  
-
     /* #region WIP TEST*/
     int rows = 3;
     int cols = 4;
@@ -106,9 +100,10 @@ int main()
     }
     delete[] matrix;   
 
-    int arrForMatrix [4] = {1, 2, 3, 4};
+    vector<int> arrForMatrix = {1, 2, 3, 4};
     int test = aux_numberSubsequenceLessThanK(arrForMatrix, 4, 10);
-    /* #endregion WIP TEST*/
+    
+    /* #endregion WIP TEST */
     
     string k_temp;
     getline(cin, k_temp);
@@ -128,48 +123,8 @@ int main()
     for (int i = 0; i < dim; i++) {
         int arr_temp = stoi(arr_temp_int[i]);
         arr[i] = arr_temp;
-    }
-        
+    }        
     cout << numberSubsequenceLessThanK(arr, k);
     
     return 0;
-}
-
-string ltrim(const string &str) {
-    string s(str);
-
-    s.erase(
-        s.begin(),
-        find_if(s.begin(), s.end(), not1(ptr_fun<int, int>(isspace)))
-    );
-
-    return s;
-}
-
-string rtrim(const string &str) {
-    string s(str);
-
-    s.erase(
-        find_if(s.rbegin(), s.rend(), not1(ptr_fun<int, int>(isspace))).base(),
-        s.end()
-    );
-
-    return s;
-}
-
-vector<string> split(const string &str) {
-    vector<string> tokens;
-
-    string::size_type start = 0;
-    string::size_type end = 0;
-
-    while ((end = str.find(" ", start)) != string::npos) {
-        tokens.push_back(str.substr(start, end - start));
-
-        start = end + 1;
-    }
-
-    tokens.push_back(str.substr(start));
-
-    return tokens;
 }
