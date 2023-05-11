@@ -30,7 +30,7 @@ int aux_numberSubsequenceLessThanK(vector<int> &arr,int n, int k){
 
     // Compute the DP table
     for (int i = 1; i <= n; i++) {
-        for (int j = 2; j <= k; j++) {
+        for (int j = 1; j <= k; j++) {
             dp[i][j] = dp[i-1][j];
             if (arr[i-1] <= j) {
                 dp[i][j] += dp[i-1][j/arr[i-1]];
@@ -61,14 +61,42 @@ int aux_Rec_numberSubsequenceLessThanK(vector<int>& arr, int n, int k) //Compile
 
 /* #region funzioni ES */
 
-int numberSubsequenceLessThanK(vector<int> &arr, int k){
-    //dynamic programming
-    int ret = aux_numberSubsequenceLessThanK(arr, arr.size(), k);
-    //recursive
-    //int ret = aux_Rec_numberSubsequenceLessThanK(arr, arr.size(), k);
-
+//recursive----------------------------------------------------------------------------
+/*int numberSubsequenceLessThanK(vector<int> &arr, int k){
+    int ret = aux_Rec_numberSubsequenceLessThanK(arr, arr.size(), k);
     return ret;
+}*/
+
+//dynamic programming----------------------------------------------------------------------------
+int numberSubsequenceLessThanK(vector<int> &arr, int k){
+    int n = arr.size();
+    int dp[k + 1][n + 1];
+    memset(dp, 0, sizeof(dp));
+ 
+    for (int i = 1; i <= k; i++) {
+        for (int j = 1; j <= n; j++) {
+    
+            // number of subsequence using j-1 terms
+            dp[i][j] = dp[i][j - 1];
+   
+            // if arr[j-1] > i it will surely make product greater
+            // thus it won't contribute then
+            if (arr[j - 1] <= i)
+ 
+                // number of subsequence using 1 to j-1 terms
+                // and j-th term
+                dp[i][j] += dp[i/arr[j-1]][j-1] + 1;
+        }
+    }
+    return dp[k][n];
 }
+/* --------------------------------------------------------------------------------------------------------
+La complessità di questa funzione è "O(k*n)" con n numero di elementi del vettore e k vaolore massimo della somma dato in input.
+Questa complessità è abbastanza intuitiva da calcolare ed data dai due cicli for "innestati".
+
+La complessità della soluzione ricorsiva è invece "O(2^n)", data dalle due chiamate ricorsive ed al caso base ("O(1)") che portano a questa 
+situazione: "2 * T(n-1) + O(1)" --> "O(2^n)".
+-------------------------------------------------------------------------------------------------------- */
 /* #endregion funzioni ES */
 
 
