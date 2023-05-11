@@ -96,6 +96,29 @@ Questa complessità è abbastanza intuitiva da calcolare ed data dai due cicli f
 
 La complessità della soluzione ricorsiva è invece "O(2^n)", data dalle due chiamate ricorsive ed al caso base ("O(1)") che portano a questa 
 situazione: "2 * T(n-1) + O(1)" --> "O(2^n)".
+Nel dettaglio, in ogni chiamata ricorsiva, l'algoritmo esegue operazioni aggiuntive (O(1)) per calcolare il conteggio delle sottosequenze. 
+Queste operazioni non dipendono dalla dimensione dell'input e possono essere considerate a tempo costante.
+Combinando i passaggi precedenti, possiamo esprimere la complessità temporale dell'algoritmo nel seguente modo:
+T(n) = 2 * T(n-1) + O(1)
+
+Ora, valutiamo la relazione di ricorrenza:
+
+T(n) = 2 * T(n-1) + O(1)
+= 2 * (2 * T(n-2) + O(1)) + O(1)
+= 2^2 * T(n-2) + 2 * O(1) + O(1)
+= 2^2 * (2 * T(n-3) + O(1)) + 2 * O(1) + O(1)
+= 2^3 * T(n-3) + 2^2 * O(1) + 2 * O(1) + O(1)
+ecc...
+
+Continuando in questo modo, possiamo generalizzare l'equazione:
+
+T(n) = 2^n * T(0) + 2^(n-1) * O(1) + 2^(n-2) * O(1) + ... + O(1)
+
+Poiché "T(0)" è una costante e i termini "O(1)" si sommano a una costante, possiamo semplificare l'equazione in:
+
+T(n) = O(2^n)
+
+Pertanto, la complessità temporale complessiva dell'algoritmo è "O(2^n)".
 -------------------------------------------------------------------------------------------------------- */
 /* #endregion funzioni ES */
 
